@@ -19,11 +19,13 @@ using std::vector;
 class Usuario;
 class Bibliotecario;
 class Libros;
+class Asignacion;
 
 // Listas globales (base de datos en memoria para el menú)
 extern vector<Usuario*> usuarios;
 extern vector<Bibliotecario*> bibliotecarios;
 extern vector<Libros*> libros;
+extern vector<Asignacion*> asignaciones;
 
 #endif
 
