@@ -1,98 +1,96 @@
-#ifndef LIBROS _H
-
-// Se definen los métodos y atributos para llevar a cabo el desarrollo del proyecto
-
+#ifndef LIBROS_H 
 #define LIBROS_H
 
-// Declaraciones de métodos y atributos de la clase Libros
-
 #include "Librerias.h"
+#include <string>
+
+using namespace std;
 
 /**
  * @class Libros
  * @brief Clase Libros que representa los libros en el sistema bibliotecario.
  * Esta clase es una clase base abstracta que define los atributos y métodos comunes a todos los tipos de libros.
  */
-
 class Libros {
     private:
         string titulo;
         string autor;
-        string disponible;
+        string disponible; // Maneja "Disponible" o "No Disponible"
         string codigoLibro;
 
     public:        
-        Libros(string titulo, string autor, string disponible,string codigoLibro);       // Constructor para inicializar los atributos de la clase Libros.
-            
-        virtual ~Libros() = default;                   // Destructor virtual para realizar polimorfismo.
-
-        // Setters y getters para los atributos de la clase Libros.
+        // Constructor para inicializar los atributos de la clase Libros.
+        Libros(string titulo, string autor, string disponible, string codigoLibro);        
 
         /**
-         * @brief Establece el nombre que representa a una persona en el sistema bibliotecario.
-         * @param titulo Variable nombre que se establecerá como atributo nombre.
-         * @return No retorna nada.
+         * @brief Establece el título del libro.
+         * @param titulo Cadena con el título.
          */
         void setTitulo(string titulo);
 
         /**
-         * @brief Establece la edad que tiene una persona en el sistema bibliotecario.
-         * @param autor Variable edad que se establecerá como atributo edad.
-         * @return No retorna nada.
+         * @brief Establece el autor del libro.
+         * @param autor Cadena con el autor.
          */
         void setAutor(string autor);
 
         /**
-         * @brief Establece el documento de identidad que representa a una persona en el sistema bibliotecario.
-         * @param codigoLibro Variable documento de identidad que se establecerá como atributo ID.
-         * @return No retorna nada.
+         * @brief Establece el código identificador del libro.
+         * @param codigoLibro Cadena con el código único.
          */
         void setCodigoLibro(string codigoLibro);
 
-                /**
-         * @brief Establece el documento de identidad que representa a una persona en el sistema bibliotecario.
-         * @param codigoLibro Variable documento de identidad que se establecerá como atributo ID.
-         * @return No retorna nada.
+        /**
+         * @brief Establece el estado de disponibilidad del libro ("Disponible" / "No Disponible").
+         * @param disponible Cadena con el estado.
          */
         void setDisponible(string disponible);
 
         /**
-         * @brief Obtiene el nombre que representa a una persona en el sistema bibliotecario.
-         * @return El nombre de la persona.
+         * @brief Obtiene el título del libro.
+         * @return El título del libro.
          */        
         string getTitulo() const;
 
         /**
-         * @brief Obtiene la edad que tiene una persona en el sistema bibliotecario.
-         * @return La edad de la persona.
+         * @brief Obtiene el autor del libro.
+         * @return El autor del libro.
          */
         string getAutor() const;
 
         /**
-         * @brief Obtiene el documento de identidad que representa a una persona en el sistema bibliotecario.
-         * @return El documento de identidad de la persona.
+         * @brief Obtiene el estado de disponibilidad.
+         * @return "Disponible" o "No Disponible".
          */
         string getDisponible() const;
 
         /**
          * @brief Obtiene el código del libro.
-         * @return El código del libro  .
+         * @return El código del libro.
          */
         string getCodigoLibro() const;
 
         /**
-         * @brief Método virtual puro para mostrar el rol de las clases hijas de Libros en el sistema bibliotecario.
-         * @return El rol de la persona.
+         * @brief Cambia el estado a "No Disponible" si el libro está libre.
+         * @return true si el préstamo se realizó, false si ya estaba ocupado.
          */
-        virtual string mostrarRol() const = 0;
+        bool prestarLibro();
+
+        /**
+         * @brief Cambia el estado del libro a "Disponible".
+         */
+        void devolverLibro();
+
+
+        /**
+         * @brief Método virtual puro para mostrar el rol de las clases hijas de Libros.
+         */
+        virtual void mostrarRol() const = 0;
         
         /**
-         * @brief Método virtual puro para mostrar información de las clases hijas de Libros en el sistema bibliotecario.
-         * @return No retorna nada.
+         * @brief Método virtual puro para mostrar información de las clases hijas de Libros.
          */
         virtual void mostrarInformacion() const = 0;
-    };
+};
 
-#endif
-
-// Fin de las declaraciones de librerias y elementos globales
+#endif // LIBROS_H
