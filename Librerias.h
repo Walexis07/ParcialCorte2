@@ -1,0 +1,27 @@
+#ifndef LIBRERIAS_H
+
+// Se definen las librerias y elementos globales para llevar a cabo el desarrollo del proyecto
+
+#define LIBRERIAS_H
+
+// Declaraciones de librerias y elementos globales para el proyecto
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+// Uso de espacios de nombres para facilitar la escritura del código profe :3
+using std::string;
+using std::vector;
+
+// Declaraciones de clases a utilizar adelantadas para evitar errores de tipo en los vectores globales
+class Usuario;
+class Libros;
+
+// Listas globales (base de datos en memoria para el menú)
+extern vector<Usuario*> usuarios;
+extern vector<Libros*> libros;
+
+#endif
+
+// Fin de las declaraciones de librerias y elementos globales
