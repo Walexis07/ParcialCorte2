@@ -20,7 +20,7 @@ class Bibliotecario : public Persona {
 
     public:
 
-        Bibliotecario(string nombre, int edad, int ID, int codigoEmpleado, int salario, string rol);       // Constructor para inicializar los atributos de la clase Bibliotecario.
+        Bibliotecario(string nombre, int edad, int ID, int codigoEmpleado, float salario, string rol);       // Constructor para inicializar los atributos de la clase Bibliotecario.
 
         // Setters y getters para los atributos de la clase Bibliotecario.
 
@@ -36,7 +36,7 @@ class Bibliotecario : public Persona {
          * @param salario Variable que se establecerá como atributo salario.
          * @return No retorna nada.
          */
-        void setSalario(int salario);
+        void setSalario(float salario);
 
         /**
          * @brief Obtiene el código de empleado que representa a un bibliotecario en el sistema bibliotecario.
@@ -48,7 +48,7 @@ class Bibliotecario : public Persona {
          * @brief Obtiene el salario del bibliotecario.
          * @return El salario del bibliotecario.
          */
-        int getSalario() const;
+        float getSalario() const;
 
         /**
          * @brief Sobrescribe el método de Persona para mostrar el rol de esta.

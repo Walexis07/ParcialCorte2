@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <iomanip>
 
 // Uso de espacios de nombres para facilitar la escritura del código profe :3
 using std::string;
