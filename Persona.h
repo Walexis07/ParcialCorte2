@@ -61,11 +61,17 @@ class Persona {
         int getID() const;
 
         /**
-         * @brief Método virtual puro para mostrar información de Persona en el sistema bibliotecario.
+         * @brief Método virtual puro para mostrar el rol de las clases hijas de Persona en el sistema bibliotecario.
          * @return No retorna nada.
          */
-        virtual void showInformation() const = 0;
-};
+        virtual void mostrarRol() const = 0;
+        
+        /**
+         * @brief Método virtual puro para mostrar información de las clases hijas de Persona en el sistema bibliotecario.
+         * @return No retorna nada.
+         */
+        virtual void mostrarInformacion() const = 0;
+    };
 
 #endif
 
