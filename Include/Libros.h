@@ -82,9 +82,9 @@ class Libros {
 
         /**
          * @brief Método virtual puro para mostrar el rol de las clases hijas de Libros en el sistema bibliotecario.
-         * @return No retorna nada.
+         * @return El rol de la persona.
          */
-        virtual void mostrarRol() const = 0;
+        virtual string mostrarRol() const = 0;
         
         /**
          * @brief Método virtual puro para mostrar información de las clases hijas de Libros en el sistema bibliotecario.

@@ -16,10 +16,12 @@ using std::vector;
 
 // Declaraciones de clases a utilizar adelantadas para evitar errores de tipo en los vectores globales
 class Usuario;
+class Bibliotecario;
 class Libros;
 
 // Listas globales (base de datos en memoria para el menú)
 extern vector<Usuario*> usuarios;
+extern vector<Bibliotecario*> bibliotecarios;
 extern vector<Libros*> libros;
 
 #endif

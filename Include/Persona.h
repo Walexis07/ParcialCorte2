@@ -1,6 +1,6 @@
 #ifndef PERSONA_H
 
-// Se definen los métodos y atributos para llevar a cabo el desarrollo del proyecto
+// Define la clase Persona para evitar inclusiones múltiples
 
 #define PERSONA_H
 
@@ -8,10 +8,6 @@
 
 #include "Librerias.h"
 
-    /**
-     * @class Persona
-     * @brief Clase que representa a una Persona en el sistema bibliotecario
-     */
 class Persona {
     private:
         string nombre;
@@ -68,15 +64,15 @@ class Persona {
          * @brief Método virtual puro para mostrar el rol de las clases hijas de Persona en el sistema bibliotecario.
          * @return No retorna nada.
          */
-        virtual void mostrarRol() const = 0;
+        virtual string mostrarRol(string rol) const = 0;
         
         /**
          * @brief Método virtual puro para mostrar información de las clases hijas de Persona en el sistema bibliotecario.
          * @return No retorna nada.
          */
         virtual void mostrarInformacion() const = 0;
-    };
+};
 
 #endif
 
-// Fin de las declaraciones de librerias y elementos globales
+// Fin de las declaraciones de la clase Persona
