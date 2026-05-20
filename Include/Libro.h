@@ -84,9 +84,10 @@ class Libro {
         void devolverLibro();
         
         /**
-         * @brief Método virtual puro para mostrar información de las clases hijas de Libros.
+         * @brief Método para mostrar información especifica de la instancia Libro en el sistema bibliotecario.
+         * @return No retorna nada.
          */
-        virtual void mostrarInformacion() const = 0;
+        void mostrarInformacion() const;
 };
 
 #endif

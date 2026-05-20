@@ -99,6 +99,12 @@ class Asignacion {
         Bibliotecario* getBibliotecarioAsignado() const;
         
         /**
+         * @brief Método para asignar un libro a un estudiante a través de una Asignación de prestamo en el sistema bibliotecario.
+         * @return No retorna nada.
+         */
+        void asignarLibroAEstudiante(Asignacion* nuevaAsignacion);
+
+        /**
          * @brief Método para mostrar información especifica de una Asignación de prestamo de libro en el sistema bibliotecario.
          * @return No retorna nada.
          */

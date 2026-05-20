@@ -40,13 +40,7 @@ string Asignacion::getCodigoAsignacion() const {
 }
 
 string Asignacion::getEstadoDeAsignacion() const {
-    if (estadoDeAsignacion == "Activo") {
-        return "Activo";
-    } else if (estadoDeAsignacion == "Inactivo") {
-        return "Inactivo";
-    } else {
-        return "Estado Desconocido";
-    }
+    return this->estadoDeAsignacion;
 }
 
 Usuario* Asignacion::getUsuarioAsignado() const {
@@ -59,6 +53,12 @@ Libro* Asignacion::getLibroAsignado() const {
 
 Bibliotecario* Asignacion::getBibliotecarioAsignado() const {
     return this->bibliotecarioAsignado;
+}
+
+void Asignacion::asignarLibroAEstudiante(Asignacion* nuevaAsignacion) {
+
+    asignaciones.push_back(nuevaAsignacion);
+    std::cout << "\t[Libro asignado con exito]\n" << std::endl;
 }
 
 void Asignacion::mostrarInformacion() const { 

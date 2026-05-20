@@ -38,3 +38,9 @@ string Libro::getDisponible() const {
 string Libro::getCodigoLibro() const {
     return codigoLibro;
 }
+
+void Libro::mostrarInformacion() const {
+    
+    std::cout << "-> Nombre: " << getTitulo() << " | Autor: " << getAutor() << " | Codigo: " << getCodigoLibro() << "\n"
+              << "Disponibilidad: " << getDisponible() << "\n" << std::endl;
+}

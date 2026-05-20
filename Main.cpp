@@ -9,7 +9,7 @@
 
 vector<Usuario*> usuarios;
 vector<Bibliotecario*> bibliotecarios;
-vector<Libros*> libros;
+vector<Libro*> libros;
 vector<Asignacion*> asignaciones;
 
 // std::cin.ignore() será la función principal para ignorar el salto de línea pendiente después de cada lectura de datos con std::cin
@@ -36,7 +36,7 @@ int main () {
     std::cin >> opcion;
     std::cin.ignore();
 
-        switch (opcion) {
+    switch (opcion) {
 
             
         case 1: {
@@ -78,7 +78,7 @@ int main () {
 
 
         case 2: {
-string nombre;
+            string nombre;
             int edad;
             int ID;
             int codigoEmpleado;
@@ -108,7 +108,7 @@ string nombre;
             bibliotecarios.push_back(new Bibliotecario(nombre, edad, ID, codigoEmpleado, salario, rol));
             std::cout << "\t[Bibliotecario registrado con exito]\n" << std::endl;
             break;
-
+        }
 
         case 3: {
             string libroTitulo; 
@@ -130,6 +130,91 @@ string nombre;
             std::cout << "Ingrese la disponibilidad del libro: ";
             std::getline(std::cin, disponibilidad);
 
+            libros.push_back(new Libro(libroTitulo, autor, disponibilidad, libroCodigo));
+            std::cout << "\t[Libro registrado con exito]\n" << std::endl;
             break;
-        } 
-    }
+        }
+
+        case 4: {
+            if (usuarios.empty()) {
+                std::cout << "\t\aDebe registrar al menos un usuario primero.\n";
+                break;
+            }
+            if (libros.empty()) {
+                std::cout << "\t\aDebes registrar al menos un libro primero.\n";
+                break;
+            }
+            if (bibliotecarios.empty()) {
+                std::cout << "\t\aDebes registrar al menos un bibliotecario primero.\n";
+                break;
+            }
+
+            int codigoUsuario;
+            int codigoBibliotecario;
+            string codigoLibro;
+            string codigoAsignacion;
+            string estadoDeAsignacion;
+            
+            Libro* libroEncontrado = nullptr;
+            Usuario* usuarioEncontrado = nullptr;
+            Bibliotecario* bibliotecarioEncontrado = nullptr;
+
+            std::cout << "\n\t[Nuevo Prestamo]\n";
+            std::cout << "Ingrese el codigo del usuario: "; 
+            std::cin >> codigoUsuario;
+            std::cin.ignore();
+
+            std::cout << "Ingrese el codigo del libro: "; 
+            std::cin >> codigoLibro;
+            std::getline(std::cin, codigoLibro);
+
+            std::cout << "Ingrese el codigo del bibliotecario: "; 
+            std::cin >> codigoBibliotecario;
+            std::cin.ignore();
+
+            // Buscando usuarios en las bases de datos globables a partir del codigo ingresado
+            for (Usuario* auxUser : usuarios) {
+                if (auxUser->getCodigoUsuario() == codigoUsuario) {
+                    usuarioEncontrado = auxUser;
+                    break;
+                }
+            }
+
+            // Buscando libros en las bases de datos globables a partir del codigo ingresado
+            for (Libro* auxBook : libros) {
+                if (auxBook->getCodigoLibro() == codigoLibro) {
+                    libroEncontrado = auxBook;
+                    break;
+                }
+            }
+
+            // Buscando bibliotecarios en las bases de datos globables a partir del codigo ingresado
+            for (Bibliotecario* auxLibrarian : bibliotecarios) {
+                if (auxLibrarian->getCodigoEmpleado() == codigoBibliotecario) {
+                    bibliotecarioEncontrado = auxLibrarian;
+                    break;
+                }
+            }
+
+            if (usuarioEncontrado && libroEncontrado && bibliotecarioEncontrado) {
+                if (libroEncontrado->getDisponible() == "Disponible"){
+                    
+                    Asignacion* nuevoPrestamo = new Asignacion(codigoAsignacion, estadoDeAsignacion, usuarioEncontrado, bibliotecarioEncontrado, libroEncontrado);
+                    nuevoPrestamo->asignarLibroAEstudiante(nuevoPrestamo);
+
+                    delete nuevoPrestamo; // Liberar memoria del nuevo prestamo después de asignar el libro
+
+                } else if (libroEncontrado->getDisponible() == "En Prestamo") {
+                    std::cout << "\t\aEl libro seleccionado se encuenta en prestamo. No se pudo realizar la asignacion.\n" << std::endl;
+                }
+
+            } else {
+                std::cout << "\t\aError: usuario, libro o bibliotecario no encontrado. No se pudo realizar la asignacion.\n" << std::endl;
+                
+                delete usuarioEncontrado; // Liberar memoria del usuario encontrado si no se pudo realizar la asignacion
+                delete libroEncontrado;  // Liberar memoria del libro encontrado si no se pudo realizar la asignacion
+                delete bibliotecarioEncontrado;  // Liberar memoria del bibliotecario encontrado si no se pudo realizar la asignacion
+            }
+            break;
+        }
+
