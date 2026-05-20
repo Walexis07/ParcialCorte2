@@ -1,17 +1,19 @@
-#ifndef LIBROS_H 
-#define LIBROS_H
+#ifndef LIBRO_H
+
+//Se define la clase Libro para evitar inclusiones múltiples
+
+#define LIBRO_H
+
+// Declaraciones de métodos y atributos de la clase Libro
 
 #include "Librerias.h"
-#include <string>
-
-using namespace std;
 
 /**
  * @class Libros
- * @brief Clase Libros que representa los libros en el sistema bibliotecario.
+ * @brief Clase Libro que representa los libros en el sistema bibliotecario.
  * Esta clase es una clase base abstracta que define los atributos y métodos comunes a todos los tipos de libros.
  */
-class Libros {
+class Libro {
     private:
         string titulo;
         string autor;
@@ -20,7 +22,7 @@ class Libros {
 
     public:        
         // Constructor para inicializar los atributos de la clase Libros.
-        Libros(string titulo, string autor, string disponible, string codigoLibro);        
+        Libro(string titulo, string autor, string disponible, string codigoLibro);        
 
         /**
          * @brief Establece el título del libro.
@@ -80,12 +82,6 @@ class Libros {
          * @brief Cambia el estado del libro a "Disponible".
          */
         void devolverLibro();
-
-
-        /**
-         * @brief Método virtual puro para mostrar el rol de las clases hijas de Libros.
-         */
-        virtual void mostrarRol() const = 0;
         
         /**
          * @brief Método virtual puro para mostrar información de las clases hijas de Libros.
@@ -93,4 +89,6 @@ class Libros {
         virtual void mostrarInformacion() const = 0;
 };
 
-#endif // LIBROS_H
+#endif
+
+//Fin de declaraciones de la clase Libro
