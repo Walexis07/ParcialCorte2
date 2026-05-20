@@ -8,6 +8,10 @@
 
 #include "Librerias.h"
 
+    /**
+     * @class Persona
+     * @brief Clase que representa a una Persona en el sistema bibliotecario
+     */
 class Persona {
     private:
         string nombre;
