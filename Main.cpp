@@ -14,9 +14,9 @@ vector<Asignacion*> asignaciones;
 
 // std::cin.ignore() será la función principal para ignorar el salto de línea pendiente después de cada lectura de datos con std::cin
 
-int main () { 
+int main () {
 
-    std::cout << "\n\t===== SISTEMA DE GESTION BIBLIOTECARIA =====\n";
+std::cout << "\n\t===== SISTEMA DE GESTION BIBLIOTECARIA =====\n";
     
     do {
     int opcion;
@@ -152,8 +152,8 @@ int main () {
             int codigoUsuario;
             int codigoBibliotecario;
             string codigoLibro;
-            string codigoAsignacion;
-            string estadoDeAsignacion;
+            string tipoDeAsignacion = "Prestamo";
+            string codigoAsignacion = "010101";
             
             Libro* libroEncontrado = nullptr;
             Usuario* usuarioEncontrado = nullptr;
@@ -199,10 +199,11 @@ int main () {
             if (usuarioEncontrado && libroEncontrado && bibliotecarioEncontrado) {
                 if (libroEncontrado->getDisponible() == "Disponible"){
                     
-                    Asignacion* nuevoPrestamo = new Asignacion(codigoAsignacion, estadoDeAsignacion, usuarioEncontrado, bibliotecarioEncontrado, libroEncontrado);
+                    Asignacion* nuevoPrestamo = new Asignacion(codigoAsignacion, tipoDeAsignacion, usuarioEncontrado, bibliotecarioEncontrado, libroEncontrado);
                     nuevoPrestamo->asignarLibroAEstudiante(nuevoPrestamo);
+                    libroEncontrado->setDisponible("En Prestamo");
 
-                    delete nuevoPrestamo; // Liberar memoria del nuevo prestamo después de asignar el libro
+                    delete nuevoPrestamo; // Liberar memoria del nuevo prestamo
 
                 } else if (libroEncontrado->getDisponible() == "En Prestamo") {
                     std::cout << "\t\aEl libro seleccionado se encuenta en prestamo. No se pudo realizar la asignacion.\n" << std::endl;
@@ -218,3 +219,180 @@ int main () {
             break;
         }
 
+                case 5: {
+            if (usuarios.empty()) {
+                std::cout << "\t\aDebe registrar al menos un usuario primero.\n";
+                break;
+            }
+            if (libros.empty()) {
+                std::cout << "\t\aDebes registrar al menos un libro primero.\n";
+                break;
+            }
+            if (bibliotecarios.empty()) {
+                std::cout << "\t\aDebes registrar al menos un bibliotecario primero.\n";
+                break;
+            }
+
+            int codigoUsuario;
+            int codigoBibliotecario;
+            string codigoLibro;
+            string tipoDeAsignacion = "Devolucion";
+            string codigoAsignacion = "020202";
+            
+            Libro* libroEncontrado = nullptr;
+            Usuario* usuarioEncontrado = nullptr;
+            Bibliotecario* bibliotecarioEncontrado = nullptr;
+
+            std::cout << "\n\t[Nuevo Prestamo]\n";
+            std::cout << "Ingrese el codigo del usuario: "; 
+            std::cin >> codigoUsuario;
+            std::cin.ignore();
+
+            std::cout << "Ingrese el codigo del libro: "; 
+            std::cin >> codigoLibro;
+            std::getline(std::cin, codigoLibro);
+
+            std::cout << "Ingrese el codigo del bibliotecario: "; 
+            std::cin >> codigoBibliotecario;
+            std::cin.ignore();
+
+            // Buscando usuarios en las bases de datos globables a partir del codigo ingresado
+            for (Usuario* auxUser : usuarios) {
+                if (auxUser->getCodigoUsuario() == codigoUsuario) {
+                    usuarioEncontrado = auxUser;
+                    break;
+                }
+            }
+
+            // Buscando libros en las bases de datos globables a partir del codigo ingresado
+            for (Libro* auxBook : libros) {
+                if (auxBook->getCodigoLibro() == codigoLibro) {
+                    libroEncontrado = auxBook;
+                    break;
+                }
+            }
+
+            // Buscando bibliotecarios en las bases de datos globables a partir del codigo ingresado
+            for (Bibliotecario* auxLibrarian : bibliotecarios) {
+                if (auxLibrarian->getCodigoEmpleado() == codigoBibliotecario) {
+                    bibliotecarioEncontrado = auxLibrarian;
+                    break;
+                }
+            }
+
+            if (usuarioEncontrado && libroEncontrado && bibliotecarioEncontrado) {
+                if (libroEncontrado->getDisponible() == "En Prestamo"){
+                    
+                    
+                    Asignacion* nuevaDevolucion = new Asignacion(codigoAsignacion, tipoDeAsignacion, usuarioEncontrado, bibliotecarioEncontrado, libroEncontrado);
+                    nuevaDevolucion->asignarLibroAEstudiante(nuevaDevolucion);
+                    libroEncontrado->setDisponible("En Prestamo");
+
+                    delete nuevaDevolucion; // Liberar memoria del nuevo prestamo
+
+                } else if (libroEncontrado->getDisponible() == "Disponible") {
+                    std::cout << "\t\aEl libro seleccionado se encuenta en disponible. No se pudo realizar la asignacion.\n" << std::endl;
+                }
+
+            } else {
+                std::cout << "\t\aError: usuario, libro o bibliotecario no encontrado. No se pudo realizar la asignacion.\n" << std::endl;
+                
+                delete usuarioEncontrado; // Liberar memoria del usuario encontrado si no se pudo realizar la asignacion
+                delete libroEncontrado;  // Liberar memoria del libro encontrado si no se pudo realizar la asignacion
+                delete bibliotecarioEncontrado;  // Liberar memoria del bibliotecario encontrado si no se pudo realizar la asignacion
+            }
+
+            break;
+        }
+
+        case 6: {
+            std::cout << "\n\t=== USUARIOS EN EL SISTEMA ===\n";
+            if (usuarios.empty()) {
+                std::cout << "No hay usuarios registrados.\n";
+            } else {
+                for (Usuario* auxUser : usuarios) {         //Buscando profesor en las bases de datos globables a partir del codigo ingresado
+                    if (dynamic_cast<Usuario*>(auxUser)) {
+                        auxUser->mostrarInformacion();
+                    }
+                }
+            }
+            break;
+        }
+
+        case 7: {
+            std::cout << "\n\t=== BIBLIOTECARIOS EN EL SISTEMA ===\n";
+            if (bibliotecarios.empty()) {
+            std::cout << "No hay bibliotecarios registrados.\n";
+
+            } else {
+                for (Bibliotecario* auxLibrarian : bibliotecarios) {       //Buscando bibliotecario en las bases de datos globables a partir del codigo ingresado
+                    auxLibrarian->mostrarInformacion();
+                }
+            }
+            break;
+        }
+
+        case 8: {
+            std::cout << "\n\t=== LIBROS EN EL SISTEMA ===\n";
+            if (libros.empty()) {
+                std::cout << "No hay libros registrados.\n";
+            
+            } else {
+                for (Libro* auxBooks : libros) {       //Buscando libro en las bases de datos globables a partir del codigo ingresado
+                    auxBooks->mostrarInformacion();
+                }
+            }
+            break;
+        }
+
+        case 9: {
+            if (usuarios.empty()) {
+                std::cout << "\t\aDebe crear al menos un usuariario primero.\n";
+                break;
+            }
+            if (bibliotecarios.empty()) {
+                std::cout << "\t\aDebes crear al menos un bibliotecario primero.\n";
+                break;
+            }
+               if (libros.empty()) {
+                std::cout << "\t\aDebes crear al menos un libro primero.\n";
+                break;
+            }
+        }
+        case 10: {
+            std::cout << "Saliendo del programa...\n";
+            
+            // Proceso de limpieza y liberación de memoria asignada a usuarios, bibliotecarios, libros y asignaciones antes de salir del programa
+            
+            for (Usuario* auxUser : usuarios) {
+                delete auxUser;
+            }
+            usuarios.clear();
+
+            for (Bibliotecario* auxLibrarian : bibliotecarios) {
+                delete auxLibrarian;
+            }
+            bibliotecarios.clear();
+            
+            for (Libro* auxBooks : libros) {
+                delete auxBooks;
+            }
+            libros.clear();
+
+            for (Asignacion* auxAssignment : asignaciones) {
+                delete auxAssignment;
+            }
+            asignaciones.clear();
+
+            return 0;       // Salida del programa
+        }
+
+        default: {
+            std::cout << "Opcion no valida. Intente nuevamente.\n" << std::endl;
+            break;
+        }
+
+    }
+    
+    }while (true); // Bucle infinito para mantener el programa en ejecución hasta que el usuario decida salir
+}
