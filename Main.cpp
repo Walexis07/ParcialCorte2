@@ -1,9 +1,9 @@
-#include "C:\Users\USUARIO\Desktop\Programas-creados\Trabajo\ParcialCorte2/Include/Librerias.h"
-#include "C:\Users\USUARIO\Desktop\Programas-creados\Trabajo\ParcialCorte2/Include/Persona.h"
-#include "C:\Users\USUARIO\Desktop\Programas-creados\Trabajo\ParcialCorte2/Include/Usuario.h"
-#include "C:\Users\USUARIO\Desktop\Programas-creados\Trabajo\ParcialCorte2/Include/Bibliotecario.h"
-#include "C:\Users\USUARIO\Desktop\Programas-creados\Trabajo\ParcialCorte2/Include/Libro.h"
-#include "C:\Users\USUARIO\Desktop\Programas-creados\Trabajo\ParcialCorte2/Include/Asignacion.h"
+#include "../Include/Librerias.h"
+#include "../Include/Persona.h"
+#include "../Include/Usuario.h"
+#include "../Include/Bibliotecario.h"
+#include "../Include/Libro.h"
+#include "../Include/Asignacion.h"
 
 // Listas globales (base de datos en memoria para el menú)
 
