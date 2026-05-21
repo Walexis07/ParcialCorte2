@@ -7,9 +7,9 @@ Asignacion::Asignacion(string codigoDeAsignacion, Usuario* usuarioAsignado, Bibl
     this->libroAsignado = libroAsignado;
 }
 
-Asignacion::Asignacion(string codigoDeAsignacion, string estadoDeAsignacion, Usuario* usuarioAsignado, Bibliotecario* bibliotecarioAsignado, Libro* libroAsignado) {
+Asignacion::Asignacion(string codigoDeAsignacion, string tipoDeAsignacion, Usuario* usuarioAsignado, Bibliotecario* bibliotecarioAsignado, Libro* libroAsignado) {
     this->codigoDeAsignacion = codigoDeAsignacion;
-    this->estadoDeAsignacion = estadoDeAsignacion;
+    this->tipoDeAsignacion = tipoDeAsignacion;
     this->usuarioAsignado = usuarioAsignado;
     this->bibliotecarioAsignado = bibliotecarioAsignado;
     this->libroAsignado = libroAsignado;
@@ -19,8 +19,8 @@ void Asignacion::setcodigoDeAsignacion(string codigoDeAsignacion) {
     this->codigoDeAsignacion = codigoDeAsignacion;
 }
 
-void Asignacion::setEstadoDeAsignacion(string estadoDeAsignacion) {
-    this->estadoDeAsignacion = estadoDeAsignacion;
+void Asignacion::setTipoDeAsignacion(string tipoDeAsignacion) {
+    this->tipoDeAsignacion = tipoDeAsignacion;
 }
 
 void Asignacion::setUsuarioAsignado(Usuario* usuarioAsignado) {
@@ -39,8 +39,8 @@ string Asignacion::getCodigoAsignacion() const {
     return this->codigoDeAsignacion;
 }
 
-string Asignacion::getEstadoDeAsignacion() const {
-    return this->estadoDeAsignacion;
+string Asignacion::getTipoDeAsignacion() const {
+    return this->tipoDeAsignacion;
 }
 
 Usuario* Asignacion::getUsuarioAsignado() const {
@@ -56,13 +56,11 @@ Bibliotecario* Asignacion::getBibliotecarioAsignado() const {
 }
 
 void Asignacion::asignarLibroAEstudiante(Asignacion* nuevaAsignacion) {
-
-    asignaciones.push_back(nuevaAsignacion);
-    std::cout << "\t[Libro asignado con exito]\n" << std::endl;
+    std::cout << "\t[Accion registrada con exito]\n" << std::endl;
 }
 
 void Asignacion::mostrarInformacion() const { 
-    std::cout << "Asignacion [" << getEstadoDeAsignacion() << "] -> Usuario: " << getUsuarioAsignado()->getNombre() 
+    std::cout << "Asignacion [" << getTipoDeAsignacion() << "] -> Usuario: " << getUsuarioAsignado()->getNombre() 
               << " | Codigo: " << getUsuarioAsignado()->getCodigoUsuario() << " | Libro: " << getLibroAsignado()->getTitulo()
               << " | Codigo: " << getLibroAsignado()->getCodigoLibro() << " | Bibliotecario Responsable: " 
               << getBibliotecarioAsignado()->getNombre() << " | Codigo: " << getBibliotecarioAsignado()->getCodigoEmpleado() 

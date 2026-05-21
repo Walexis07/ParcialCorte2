@@ -14,12 +14,12 @@
 /**
  * @class Asignacion
  * @brief Clase Asignacion que representa la asignación de libros a usuarios en el sistema bibliotecario.
- * Esta clase es una clase base abstracta que define los atributos y métodos comunes a todos los tipos de libros.
+ * Esta clase define los atributos y métodos comunes a todos los tipos de libros.
  */
 class Asignacion {
     private:
         string codigoDeAsignacion;
-        string estadoDeAsignacion;
+        string tipoDeAsignacion;
         Usuario* usuarioAsignado;
         Bibliotecario* bibliotecarioAsignado;
         Libro* libroAsignado;
@@ -29,7 +29,7 @@ class Asignacion {
         Asignacion(string codigoDeAsignacion, Usuario* usuarioAsignado, Bibliotecario* bibliotecarioAsignado, Libro* libroAsignado);       
 
         // Constructor 2 para inicializar los atributos de la clase Asignacion (Se requiere estado de asignacion).
-        Asignacion(string codigoDeAsignacion, string estadoDeAsignacion, Usuario* usuarioAsignado, Bibliotecario* bibliotecarioAsignado, Libro* libroAsignado);
+        Asignacion(string codigoDeAsignacion, string tipoDeAsignacion, Usuario* usuarioAsignado, Bibliotecario* bibliotecarioAsignado, Libro* libroAsignado);
 
         // Setters y getters para los atributos de la clase Libros.
 
@@ -45,7 +45,7 @@ class Asignacion {
          * @param estadoDeAsignacion Variable estado de asignación que se establecerá como atributo estado de asignación.
          * @return No retorna nada.
          */
-        void setEstadoDeAsignacion(string estadoDeAsignacion);
+        void setTipoDeAsignacion(string tipoDeAsignacion);
 
         /**
          * @brief Establece el usuario asignado.
@@ -78,7 +78,7 @@ class Asignacion {
          * @brief Obtiene el estado de la asignación de un prestamo de libro.
          * @return El estado de la asignación.
          */
-        string getEstadoDeAsignacion() const;
+        string getTipoDeAsignacion() const;
 
         /**
          * @brief Obtiene la instancia del usuario que solicita un préstamo de libro en el sistema bibliotecario.
@@ -100,6 +100,7 @@ class Asignacion {
         
         /**
          * @brief Método para asignar un libro a un estudiante a través de una Asignación de prestamo en el sistema bibliotecario.
+         * @param nuevaAsignacion instancia de una nueva asignacion para realizar prestamo
          * @return No retorna nada.
          */
         void asignarLibroAEstudiante(Asignacion* nuevaAsignacion);

@@ -11,7 +11,7 @@
 /**
  * @class Libro
  * @brief Clase Libro que representa los libros en el sistema bibliotecario.
- * Esta clase es una clase base abstracta que define los atributos y métodos comunes a todos los tipos de libros.
+ * Esta clase define los atributos y métodos comunes a todos los tipos de libros.
  */
 class Libro {
     private:

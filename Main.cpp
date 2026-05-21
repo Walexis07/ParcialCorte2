@@ -44,8 +44,8 @@ std::cout << "\n\t===== SISTEMA DE GESTION BIBLIOTECARIA =====\n";
             int edad;
             int ID;
             int codigoUsuario;
-            int librosPrestados;
-            string rol ="Usuario";
+            int librosPrestados = 0;
+            string rol = "Usuario";
 
             std::cout << "\n\t[Nuevo Estudiante]\n";
             std::cout << "Ingrese el nombre del usuario: ";
@@ -62,14 +62,6 @@ std::cout << "\n\t===== SISTEMA DE GESTION BIBLIOTECARIA =====\n";
             std::cout << "Ingrese el codigo del usuario: ";
             std::cin >> codigoUsuario;
             std::cin.ignore();
-
-            std::cout << "Ingrese el numero de libros prestados: ";
-            std::cin >> librosPrestados;
-            std::cin.ignore();
-
-            std::cout << "\n\t[Nuevo Estudiante]\n";
-            std::cout << "Ingrese el nombre del usuario: ";
-            std::getline(std::cin,rol);
 
             usuarios.push_back(new Usuario(nombre, edad, ID, codigoUsuario, librosPrestados, rol));
             std::cout << "\t[Usuario registrado con exito]\n" << std::endl;
@@ -89,7 +81,7 @@ std::cout << "\n\t===== SISTEMA DE GESTION BIBLIOTECARIA =====\n";
             std::cout << "Ingrese el nombre del bibliotecario: ";
             std::getline(std::cin, nombre);
 
-            std::cout << "Ingrese la edad del profesor: ";
+            std::cout << "Ingrese la edad del bibliotecario: ";
             std::cin >> edad;
             std::cin.ignore();
 
@@ -114,10 +106,10 @@ std::cout << "\n\t===== SISTEMA DE GESTION BIBLIOTECARIA =====\n";
             string libroTitulo; 
             string libroCodigo; 
             string autor; 
-            string disponibilidad;
+            string disponibilidad = "Disponible";
 
             std::cout << "\n\t[Nuevo Libro]\n";
-            std::cout << "Ingrese el nombre del Libro: ";
+            std::cout << "Ingrese el nombre del libro: ";
             std::getline(std::cin, libroTitulo);
 
             std::cout << "Ingrese el codigo del libro: ";
@@ -126,9 +118,6 @@ std::cout << "\n\t===== SISTEMA DE GESTION BIBLIOTECARIA =====\n";
 
             std::cout << "Ingrese el nombre del autor: ";
             std::getline(std::cin, autor);
-
-            std::cout << "Ingrese la disponibilidad del libro: ";
-            std::getline(std::cin, disponibilidad);
 
             libros.push_back(new Libro(libroTitulo, autor, disponibilidad, libroCodigo));
             std::cout << "\t[Libro registrado con exito]\n" << std::endl;
@@ -166,7 +155,7 @@ std::cout << "\n\t===== SISTEMA DE GESTION BIBLIOTECARIA =====\n";
 
             std::cout << "Ingrese el codigo del libro: "; 
             std::cin >> codigoLibro;
-            std::getline(std::cin, codigoLibro);
+            std::cin.ignore();
 
             std::cout << "Ingrese el codigo del bibliotecario: "; 
             std::cin >> codigoBibliotecario;
@@ -195,15 +184,14 @@ std::cout << "\n\t===== SISTEMA DE GESTION BIBLIOTECARIA =====\n";
                     break;
                 }
             }
-
+            
             if (usuarioEncontrado && libroEncontrado && bibliotecarioEncontrado) {
                 if (libroEncontrado->getDisponible() == "Disponible"){
                     
                     Asignacion* nuevoPrestamo = new Asignacion(codigoAsignacion, tipoDeAsignacion, usuarioEncontrado, bibliotecarioEncontrado, libroEncontrado);
                     nuevoPrestamo->asignarLibroAEstudiante(nuevoPrestamo);
                     libroEncontrado->setDisponible("En Prestamo");
-
-                    delete nuevoPrestamo; // Liberar memoria del nuevo prestamo
+                        asignaciones.push_back(nuevoPrestamo);
 
                 } else if (libroEncontrado->getDisponible() == "En Prestamo") {
                     std::cout << "\t\aEl libro seleccionado se encuenta en prestamo. No se pudo realizar la asignacion.\n" << std::endl;
@@ -212,14 +200,11 @@ std::cout << "\n\t===== SISTEMA DE GESTION BIBLIOTECARIA =====\n";
             } else {
                 std::cout << "\t\aError: usuario, libro o bibliotecario no encontrado. No se pudo realizar la asignacion.\n" << std::endl;
                 
-                delete usuarioEncontrado; // Liberar memoria del usuario encontrado si no se pudo realizar la asignacion
-                delete libroEncontrado;  // Liberar memoria del libro encontrado si no se pudo realizar la asignacion
-                delete bibliotecarioEncontrado;  // Liberar memoria del bibliotecario encontrado si no se pudo realizar la asignacion
             }
             break;
         }
 
-                case 5: {
+        case 5: {
             if (usuarios.empty()) {
                 std::cout << "\t\aDebe registrar al menos un usuario primero.\n";
                 break;
@@ -243,14 +228,14 @@ std::cout << "\n\t===== SISTEMA DE GESTION BIBLIOTECARIA =====\n";
             Usuario* usuarioEncontrado = nullptr;
             Bibliotecario* bibliotecarioEncontrado = nullptr;
 
-            std::cout << "\n\t[Nuevo Prestamo]\n";
+            std::cout << "\n\t[Nueva Devolucion]\n";
             std::cout << "Ingrese el codigo del usuario: "; 
             std::cin >> codigoUsuario;
             std::cin.ignore();
 
             std::cout << "Ingrese el codigo del libro: "; 
             std::cin >> codigoLibro;
-            std::getline(std::cin, codigoLibro);
+            std::cin.ignore();
 
             std::cout << "Ingrese el codigo del bibliotecario: "; 
             std::cin >> codigoBibliotecario;
@@ -283,12 +268,10 @@ std::cout << "\n\t===== SISTEMA DE GESTION BIBLIOTECARIA =====\n";
             if (usuarioEncontrado && libroEncontrado && bibliotecarioEncontrado) {
                 if (libroEncontrado->getDisponible() == "En Prestamo"){
                     
-                    
                     Asignacion* nuevaDevolucion = new Asignacion(codigoAsignacion, tipoDeAsignacion, usuarioEncontrado, bibliotecarioEncontrado, libroEncontrado);
                     nuevaDevolucion->asignarLibroAEstudiante(nuevaDevolucion);
-                    libroEncontrado->setDisponible("En Prestamo");
-
-                    delete nuevaDevolucion; // Liberar memoria del nuevo prestamo
+                    libroEncontrado->setDisponible("Disponible");
+                        asignaciones.push_back(nuevaDevolucion);
 
                 } else if (libroEncontrado->getDisponible() == "Disponible") {
                     std::cout << "\t\aEl libro seleccionado se encuenta en disponible. No se pudo realizar la asignacion.\n" << std::endl;
@@ -296,16 +279,13 @@ std::cout << "\n\t===== SISTEMA DE GESTION BIBLIOTECARIA =====\n";
 
             } else {
                 std::cout << "\t\aError: usuario, libro o bibliotecario no encontrado. No se pudo realizar la asignacion.\n" << std::endl;
-                
-                delete usuarioEncontrado; // Liberar memoria del usuario encontrado si no se pudo realizar la asignacion
-                delete libroEncontrado;  // Liberar memoria del libro encontrado si no se pudo realizar la asignacion
-                delete bibliotecarioEncontrado;  // Liberar memoria del bibliotecario encontrado si no se pudo realizar la asignacion
             }
 
             break;
         }
 
         case 6: {
+            
             std::cout << "\n\t=== USUARIOS EN EL SISTEMA ===\n";
             if (usuarios.empty()) {
                 std::cout << "No hay usuarios registrados.\n";
@@ -320,6 +300,7 @@ std::cout << "\n\t===== SISTEMA DE GESTION BIBLIOTECARIA =====\n";
         }
 
         case 7: {
+
             std::cout << "\n\t=== BIBLIOTECARIOS EN EL SISTEMA ===\n";
             if (bibliotecarios.empty()) {
             std::cout << "No hay bibliotecarios registrados.\n";
@@ -333,6 +314,7 @@ std::cout << "\n\t===== SISTEMA DE GESTION BIBLIOTECARIA =====\n";
         }
 
         case 8: {
+
             std::cout << "\n\t=== LIBROS EN EL SISTEMA ===\n";
             if (libros.empty()) {
                 std::cout << "No hay libros registrados.\n";
@@ -346,19 +328,31 @@ std::cout << "\n\t===== SISTEMA DE GESTION BIBLIOTECARIA =====\n";
         }
 
         case 9: {
+
+            std::cout << "\n\t=== ASIGNACIONES EN EL SISTEMA ===\n";
             if (usuarios.empty()) {
-                std::cout << "\t\aDebe crear al menos un usuariario primero.\n";
+                std::cout << "\t\aDebe registrar al menos un usuario primero.\n";
+                break;
+            }
+            if (libros.empty()) {
+                std::cout << "\t\aDebes registrar al menos un libro primero.\n";
                 break;
             }
             if (bibliotecarios.empty()) {
-                std::cout << "\t\aDebes crear al menos un bibliotecario primero.\n";
+                std::cout << "\t\aDebes registrar al menos un bibliotecario primero.\n";
                 break;
             }
-               if (libros.empty()) {
-                std::cout << "\t\aDebes crear al menos un libro primero.\n";
-                break;
+            if (asignaciones.empty()) {
+            std::cout << "No hay asignaciones registradas.\n";
+
+            } else {
+                for (Asignacion* auxAssignment : asignaciones) {       //Buscando bibliotecario en las bases de datos globables a partir del codigo ingresado
+                    auxAssignment->mostrarInformacion();
+                }
             }
+            break;
         }
+
         case 10: {
             std::cout << "Saliendo del programa...\n";
             
